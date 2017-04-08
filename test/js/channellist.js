@@ -399,6 +399,13 @@ layui.define([
         detailbtnhtml += '">详情</a>';
         return detailbtnhtml;
     };
+
+
+
+
+
+
+
     var channellist = {
         seturl: function(url) {
             channeloptions.url = url;
@@ -410,8 +417,6 @@ layui.define([
                 return;
             }
         },
-
-
     };
     exports('channellist', channellist);
 });
