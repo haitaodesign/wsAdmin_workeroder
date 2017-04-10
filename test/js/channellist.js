@@ -377,7 +377,6 @@ layui.define([
                 field: 'operate',
                 title: '操作',
                 align: 'center',
-                formatter: operateFormatter
             },
             {
                 field: 'cnt',
@@ -386,24 +385,6 @@ layui.define([
             }
         ]
     };
-
-    function operateFormatter(value, row, index) {
-        var detailbtnhtml = '<a class="layui-btn layui-btn-mini add" data-id="' + row.id + '" data-name="';
-        var cname;
-        if (row.name == null) {
-            cname = "无渠道名称";
-        } else {
-            cname = row.name;
-        }
-        detailbtnhtml += cname + '" data-url="/Channel/ChannelView?id=' + row.id + '&cpid=' + row.cpid;
-        detailbtnhtml += '">详情</a>';
-        return detailbtnhtml;
-    };
-
-
-
-
-
 
 
     var channellist = {
