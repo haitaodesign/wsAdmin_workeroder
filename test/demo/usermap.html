@@ -6,10 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>注册用户地图映射</title>
+    <link rel="stylesheet" href="/plugins/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/plugins/node_modules/layui/src/css/layui.css">
+    <style>
+        #usermap {
+            width: 1280px;
+            height: 900px;
+            margin: 30px auto;
+        }
+    </style>
 </head>
 
 <body>
-
+    <div class="row">
+        <div id="usermap"></div>
+    </div>
+    <script src="/plugins/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/plugins/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/plugins/node_modules/echarts/dist/echarts.js"></script>
+    <script src="/plugins/node_modules/echarts/map/js/china.js"></script>
+    <script src="/plugins/node_modules/layui/src/layui.js"></script>
+    <script src="/test/js/usermap.js"></script>
 </body>
 
 </html>
