@@ -2,6 +2,10 @@ layui.define(function(exports) {
     'use strict';
 
     var mapchart = echarts.init(document.getElementById("usermap"));
+
+
+
+
     //配置项数据    
     var options = {
         backgroundColor: '#404a59',
@@ -44,18 +48,17 @@ layui.define(function(exports) {
             },
             zlevel: 0,
             z: 2,
-            left: 'auto',
-            top: 'auto',
+            left: '100px',
+            top: '100px',
             right: 'auto',
             bottom: 'auto',
             layoutCneter: [],
-            layoutSize: 100,
+            layoutSize: 50,
             regions: [{ //在地图中对特定的区域配置样式
 
             }],
             silent: false //图形是否不响应和触发鼠标事件
         }
-
     };
 
 
@@ -64,7 +67,6 @@ layui.define(function(exports) {
         init: function() {
             mapchart.setOption(options);
             $(window).resize(mapchart.resize);
-
         },
         set_Options: function(options) {
             mapchart.setOption(options);
