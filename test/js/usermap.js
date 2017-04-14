@@ -28,35 +28,87 @@ layui.use(['map'], function() {
             }
             return res;
         });
+
+
+
+
         option = {
             series: [{
                 name: '弱',
                 type: 'scatter',
                 coordinateSystem: 'geo',
                 symbolSize: 1,
-                large: true,
+                //large: true,
                 itemStyle: {
                     normal: {
-                        shadowBlur: 2,
-                        shadowColor: 'rgba(37, 140, 249, 0.8)',
-                        color: 'rgba(37, 140, 249, 0.8)'
+                        color: '#2478cb',
+                        opacity: 0.5
                     }
                 },
-                data: weiboData[0].slice(0, 100),
+                largeThreshold: 100,
+                data: weiboData[1],
+                blendMode: 'lighter'
             }]
         };
-        var count = 100;
-        console.log(weiboData[0].length);
+        map.set_Options(option);
 
-        function getdata(count) {
-            return weiboData[0].slice(count, count + 100);
+        option.series.push({
+            name: '中',
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            symbolSize: 1,
+            //large: true,
+            itemStyle: {
+                normal: {
+                    color: '#2478cb',
+                    opacity: 0.5
+                }
+            },
+            largeThreshold: 1000,
+            data: weiboData[2],
+            blendMode: 'lighter'
+        });
+        option.series.push({
+            name: '强',
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            symbolSize: 1,
+            //large: true,
+            itemStyle: {
+                normal: {
+                    color: '#2478cb',
+                    opacity: 0.5
+                }
+            },
+            largeThreshold: 1000,
+            data: weiboData[0],
+            blendMode: 'lighter'
+        });
+        map.set_Options(option);
+        var sum = 0;
+        var count = 0;
+        var weibolength = weiboData[0].length;
+
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min;
         }
-        console.log(getdata(100));
-        console.log(option.series[0].data);
+        // var inter = null;
+        // inter = setInterval(function() {
 
-        function add_data() {
+        //     var random = getRandomInt(count, weibolength);
+        //     option.series[0].data.push(weiboData[0][random]);
+        //     map.set_Options(option);
+        //     sum++;
+        //     if (sum > weibolength) {
+        //         clearInterval(inter);
+        //         inter = null;
+        //     }
 
-        }
+        // }, 100);
+
+
 
         // setInterval(function() {
         //     var getarr = getdata(count);

@@ -43,7 +43,7 @@ layui.define(function(exports) {
                     borderColor: '#111'
                 },
                 emphasis: {
-                    areaColor: '#2a333d'
+                    //areaColor: '#2a333d'
                 }
             },
             zlevel: 0,
@@ -68,8 +68,8 @@ layui.define(function(exports) {
             mapchart.setOption(options);
             $(window).resize(mapchart.resize);
         },
-        set_Options: function(options) {
-            mapchart.setOption(options);
+        set_Options: function(option) {
+            mapchart.setOption(option);
             $(window).resize(mapchart.resize);
         }
     };
