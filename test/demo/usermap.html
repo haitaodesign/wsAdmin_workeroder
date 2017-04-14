@@ -163,8 +163,15 @@
                     blendMode: 'lighter'
                 }],
                 animation: true,
-                hoverLayerThreshold: true
+                animationEasing: 'backInOut',
+                hoverLayerThreshold: true,
+                animationThreshold: 500,
+                animationDelay: function(idx) {
+                    // 越往后的数据延迟越大
+                    return idx * 100;
+                }
             };
+
             mapchart.setOption(options);
             var sum = 0;
             var count = 0;
@@ -175,10 +182,6 @@
                 max = Math.floor(max);
                 return Math.floor(Math.random() * (max - min)) + min;
             }
-
-
-
-
         });
     </script>
 </body>
