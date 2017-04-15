@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册用户地图映射</title>
+    <link rel="stylesheet" href="/plugins/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/plugins/node_modules/layui/src/css/layui.css">
+    <style>
+        #usermap {
+            width: 100%;
+            height: 900px;
+            margin: 30px auto;
+        }
+        
+        body {
+            /*background: #404a59;*/
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row">
+        <div id="usermap"></div>
+    </div>
+    <script src="/plugins/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/plugins/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/plugins/node_modules/echarts/dist/echarts.js"></script>
+    <script src="/plugins/node_modules/echarts/map/js/china.js"></script>
+    <script src="/plugins/node_modules/layui/src/layui.js"></script>
+    <!--<script src="/test/js/usermap.js"></script>-->
+    <script>
+        var mapchart = echarts.init(document.getElementById("usermap"));
+        var bigdata;
+        $.get('/test/data/weibodata.json').done(function(weiboData) {
+            //mapchart.hideLoading();
+            var myworker = new Worker('/test/js/worker.js');
+            myworker.postMessage(weiboData);
+            myworker.onmessage = function(e) {
+                bigdata = e.data;
+            };
+        });
+        var option = {
+            baseOption: {
+                backgroundColor: '#404a59',
+                timeline: {
+                    show: true,
+                    type: 'slider',
+                    axisType: 'time',
+                    currentIndex: 0,
+                    autoPlay: true,
+                    rewind: false,
+                    loop: true,
+                    playInterval: 2000,
+                    realtime: true,
+                    controlPosition: true,
+                    zlevel: 0,
+                    z: 3,
+                    left: 'auto',
+                    top: 'auto',
+                    right: 'auto',
+                    bottom: 'auto',
+                    padding: 5,
+                    orient: 'horizontal',
+                    inverse: false,
+                    symbol: 'empty-Cirlce',
+                    symbolSize: 10,
+                    symbolRotate: 10,
+                    lineStyle: {},
+                    label: {},
+                    itemStyle: {},
+                    checkpointStyle: {},
+                    controlStyle: {},
+                    data: ['2013', '2014', '2015']
+                },
+                backgroundColor: '#404a59',
+                title: {
+                    text: '注册用户趋势',
+                    subtext: 'From 数据中心',
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                tooltip: {},
+                geo: {
+                    show: true,
+                    map: 'china',
+                    roam: false,
+                    //center: [115.91, 29.71],
+                    zoom: 1,
+                    scaleLimit: {
+                        min: 0.5,
+                        max: 3,
+                    },
+                    nameMap: {
+                        'China': '中国'
+                    },
+                    //selectedMode: false, //多个选中
+                    label: {
+                        emphasis: {
+                            show: false
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            show: false,
+                            areaColor: '#323c48',
+                            borderColor: '#111'
+                        }
+                    },
+                    zlevel: 0,
+                    z: 2,
+                    top: '10px',
+                    left: '10px',
+                    // layoutCneter: ['1%', '1%'],
+                    // layoutSize: 50,
+                    // regions: [{ //在地图中对特定的区域配置样式
+
+                    // }],
+                    silent: true //图形是否不响应和触发鼠标事件
+                },
+                series: [{
+                    type: 'pie'
+                }],
+                animation: true,
+                animationEasing: 'backInOut',
+                blendMode: 'lighter'
+            },
+            options: [{
+                title: {
+                    text: '2013'
+                },
+                series: [{
+                    data: []
+                }]
+            }, {
+                title: {
+                    text: '2014'
+                },
+                series: [{
+                    data: [
+
+                    ]
+                }]
+            }, {
+                title: {
+                    text: '2015'
+                },
+                series: [{
+                    data: []
+                }]
+            }]
+        };
+        mapchart.setOption(option);
+    </script>
+</body>
+
+</html>

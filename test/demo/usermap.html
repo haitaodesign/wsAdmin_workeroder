@@ -14,6 +14,11 @@
             height: 900px;
             margin: 30px auto;
         }
+        
+        body {
+            /*background: #404a59;*/
+            overflow: hidden;
+        }
     </style>
 </head>
 
@@ -42,10 +47,11 @@
             },
             tooltip: {},
             geo: {
+                show: true,
                 map: 'china',
                 roam: false,
                 //center: [115.91, 29.71],
-                zoom: 0.5,
+                zoom: 1,
                 scaleLimit: {
                     min: 0.5,
                     max: 3,
@@ -68,12 +74,10 @@
                 },
                 zlevel: 0,
                 z: 2,
-                left: '100px',
-                top: '100px',
-                right: 'auto',
-                bottom: 'auto',
-                layoutCneter: [],
-                layoutSize: 50,
+                top: '10px',
+                left: '10px',
+                // layoutCneter: ['1%', '1%'],
+                // layoutSize: 50,
                 // regions: [{ //在地图中对特定的区域配置样式
 
                 // }],
