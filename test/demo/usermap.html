@@ -41,12 +41,11 @@
                 }
             },
             tooltip: {},
-
             geo: {
                 map: 'china',
                 roam: false,
                 //center: [115.91, 29.71],
-                zoom: 1,
+                zoom: 0.5,
                 scaleLimit: {
                     min: 0.5,
                     max: 3,
@@ -90,65 +89,29 @@
         //mapchart.showLoading();
         $.get('/test/data/weibodata.json').done(function(weiboData) {
             //mapchart.hideLoading();
-            var weiboData = weiboData.map(function(serieData, idx) {
-                var px = serieData[0] / 1000;
-                var py = serieData[1] / 1000;
-                var res = [
-                    [px, py]
-                ];
-                for (var i = 2; i < serieData.length; i += 2) {
-                    var dx = serieData[i] / 1000;
-                    var dy = serieData[i + 1] / 1000;
-                    var x = px + dx;
-                    var y = py + dy;
-                    res.push([x.toFixed(2), y.toFixed(2), 1]);
-
-                    px = x;
-                    py = y;
-                }
-                return res;
-            });
-            weiboData[0].sort(function() {
-                return 0.5 - Math.random();
-            });
-            weiboData[1].sort(function() {
-                return 0.5 - Math.random();
-            });
-            weiboData[2].sort(function() {
-                return 0.5 - Math.random();
-            });
-            var bigdata = weiboData[0].concat(weiboData[1], weiboData[2]);
-            //配置项数据    
-            var series = {
-                name: '弱',
-                type: 'scatter',
-                coordinateSystem: 'geo',
-                symbolSize: 0.5,
-                //large: true,
-                itemStyle: {
-                    normal: {
-                        // shadowBlur: 2,
-                        // shadowColor: 'rgba(37, 140, 249, 0.8)',
-                        color: 'rgba(37, 140, 249, 0.8)'
-                    }
-                },
-                data: bigdata
+            var myworker = new Worker('/test/js/worker.js');
+            myworker.postMessage(weiboData);
+            myworker.onmessage = function(e) {
+                var bigdata = e.data;
+                console.log(bigdata);
+                var series = {
+                    name: '弱',
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    symbolSize: 0.5,
+                    //large: true,
+                    itemStyle: {
+                        normal: {
+                            // shadowBlur: 2,
+                            // shadowColor: 'rgba(37, 140, 249, 0.8)',
+                            color: 'rgba(37, 140, 249, 0.8)'
+                        }
+                    },
+                    data: bigdata
+                };
+                options.series.push(series);
+                mapchart.setOption(options);
             };
-            options.series.push(series);
-
-            mapchart.setOption(options);
-
-            var sum = 0;
-            var count = 0;
-            var weibolength = weiboData[1].length;
-            setInterval(function() {
-                if (count < weibolength) {
-
-                } else {
-
-                }
-            }, 100);
-
         });
     </script>
 </body>
