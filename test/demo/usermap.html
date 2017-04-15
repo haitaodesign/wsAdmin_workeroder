@@ -29,15 +29,73 @@
     <!--<script src="/test/js/usermap.js"></script>-->
     <script>
         var mapchart = echarts.init(document.getElementById("usermap"));
+        //mapchart.showLoading();
+        var options = {
+            backgroundColor: '#404a59',
+            title: {
+                text: '注册用户趋势',
+                subtext: 'From 数据中心',
+                left: 'center',
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            tooltip: {},
 
-        $.get('/test/data/weibodata.json', function(weiboData) {
+            geo: {
+                map: 'china',
+                roam: false,
+                //center: [115.91, 29.71],
+                zoom: 1,
+                scaleLimit: {
+                    min: 0.5,
+                    max: 3,
+                },
+                nameMap: {
+                    'China': '中国'
+                },
+                //selectedMode: false, //多个选中
+                label: {
+                    emphasis: {
+                        show: false
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        show: false,
+                        areaColor: '#323c48',
+                        borderColor: '#111'
+                    }
+                },
+                zlevel: 0,
+                z: 2,
+                left: '100px',
+                top: '100px',
+                right: 'auto',
+                bottom: 'auto',
+                layoutCneter: [],
+                layoutSize: 50,
+                // regions: [{ //在地图中对特定的区域配置样式
+
+                // }],
+                silent: true //图形是否不响应和触发鼠标事件
+            },
+            series: [],
+            animation: true,
+            animationEasing: 'backInOut',
+            blendMode: 'lighter'
+        };
+
+        mapchart.setOption(options);
+        //mapchart.showLoading();
+        $.get('/test/data/weibodata.json').done(function(weiboData) {
+            //mapchart.hideLoading();
             var weiboData = weiboData.map(function(serieData, idx) {
                 var px = serieData[0] / 1000;
                 var py = serieData[1] / 1000;
                 var res = [
                     [px, py]
                 ];
-
                 for (var i = 2; i < serieData.length; i += 2) {
                     var dx = serieData[i] / 1000;
                     var dy = serieData[i + 1] / 1000;
@@ -59,129 +117,38 @@
             weiboData[2].sort(function() {
                 return 0.5 - Math.random();
             });
+            var bigdata = weiboData[0].concat(weiboData[1], weiboData[2]);
             //配置项数据    
-            var options = {
-                backgroundColor: '#404a59',
-                title: {
-                    text: '注册用户趋势',
-                    subtext: 'From 数据中心',
-                    left: 'center',
-                    textStyle: {
-                        color: '#fff'
+            var series = {
+                name: '弱',
+                type: 'scatter',
+                coordinateSystem: 'geo',
+                symbolSize: 0.5,
+                //large: true,
+                itemStyle: {
+                    normal: {
+                        // shadowBlur: 2,
+                        // shadowColor: 'rgba(37, 140, 249, 0.8)',
+                        color: 'rgba(37, 140, 249, 0.8)'
                     }
                 },
-                tooltip: {},
-
-                geo: {
-                    map: 'china',
-                    roam: false,
-                    //center: [115.91, 29.71],
-                    zoom: 1,
-                    scaleLimit: {
-                        min: 0.5,
-                        max: 3,
-                    },
-                    nameMap: {
-                        'China': '中国'
-                    },
-                    //selectedMode: false, //多个选中
-                    label: {
-                        emphasis: {
-                            show: false
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            show: false,
-                            areaColor: '#323c48',
-                            borderColor: '#111'
-                        }
-                    },
-                    zlevel: 0,
-                    z: 2,
-                    left: '100px',
-                    top: '100px',
-                    right: 'auto',
-                    bottom: 'auto',
-                    layoutCneter: [],
-                    layoutSize: 50,
-                    // regions: [{ //在地图中对特定的区域配置样式
-
-                    // }],
-                    silent: true //图形是否不响应和触发鼠标事件
-                },
-                series: [{
-                    name: '弱',
-                    type: 'scatter',
-                    coordinateSystem: 'geo',
-                    symbolSize: 0.5,
-                    //large: true,
-                    itemStyle: {
-                        normal: {
-                            shadowBlur: 2,
-                            shadowColor: 'rgba(37, 140, 249, 0.8)',
-                            color: 'rgba(37, 140, 249, 0.8)'
-                        }
-                    },
-                    largeThreshold: 100,
-                    progressive: 1000,
-                    data: weiboData[0],
-                    blendMode: 'lighter'
-                }, {
-                    name: '中',
-                    type: 'scatter',
-                    coordinateSystem: 'geo',
-                    symbolSize: 0.5,
-                    //large: true,
-                    itemStyle: {
-                        normal: {
-                            shadowBlur: 2,
-                            shadowColor: 'rgba(14, 241, 242, 0.8)',
-                            color: 'rgba(14, 241, 242, 0.8)'
-                        }
-                    },
-                    largeThreshold: 100,
-                    progressive: 1000,
-                    data: weiboData[1],
-                    blendMode: 'lighter'
-                }, {
-                    name: '强',
-                    type: 'scatter',
-                    coordinateSystem: 'geo',
-                    symbolSize: 0.5,
-                    //large: true,
-                    itemStyle: {
-                        normal: {
-                            shadowBlur: 2,
-                            shadowColor: 'rgba(255, 255, 255, 0.8)',
-                            color: 'rgba(255, 255, 255, 0.8)'
-                        }
-                    },
-                    largeThreshold: 1000,
-                    progressive: 500,
-                    data: weiboData[2],
-                    blendMode: 'lighter'
-                }],
-                animation: true,
-                animationEasing: 'backInOut',
-                hoverLayerThreshold: true,
-                animationThreshold: 500,
-                animationDelay: function(idx) {
-                    // 越往后的数据延迟越大
-                    return idx * 100;
-                }
+                data: bigdata
             };
+            options.series.push(series);
 
             mapchart.setOption(options);
+
             var sum = 0;
             var count = 0;
             var weibolength = weiboData[1].length;
+            setInterval(function() {
+                if (count < weibolength) {
 
-            function getRandomInt(min, max) {
-                min = Math.ceil(min);
-                max = Math.floor(max);
-                return Math.floor(Math.random() * (max - min)) + min;
-            }
+                } else {
+
+                }
+            }, 100);
+
         });
     </script>
 </body>
