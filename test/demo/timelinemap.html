@@ -41,121 +41,156 @@
             myworker.postMessage(weiboData);
             myworker.onmessage = function(e) {
                 bigdata = e.data;
+                var option = {
+                    baseOption: {
+                        backgroundColor: '#404a59',
+                        timeline: {
+                            show: false,
+                            type: 'slider',
+                            axisType: 'time',
+                            currentIndex: 0,
+                            autoPlay: true,
+                            rewind: false,
+                            loop: true,
+                            playInterval: 5000,
+                            realtime: true,
+                            controlPosition: true,
+                            zlevel: 0,
+                            z: 3,
+                            left: 'auto',
+                            top: 'auto',
+                            right: 'auto',
+                            bottom: 'auto',
+                            padding: 5,
+                            orient: 'horizontal',
+                            inverse: false,
+                            symbol: 'empty-Cirlce',
+                            symbolSize: 10,
+                            symbolRotate: 10,
+                            lineStyle: {},
+                            label: {},
+                            itemStyle: {},
+                            checkpointStyle: {},
+                            controlStyle: {},
+                            data: ['2013', '2014', '2015']
+                        },
+                        backgroundColor: '#404a59',
+                        title: {
+                            text: '注册用户趋势',
+                            subtext: 'From 数据中心',
+                            left: 'center',
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        tooltip: {},
+                        geo: {
+                            show: true,
+                            map: 'china',
+                            roam: false,
+                            //center: [115.91, 29.71],
+                            zoom: 1,
+                            scaleLimit: {
+                                min: 0.5,
+                                max: 3,
+                            },
+                            nameMap: {
+                                'China': '中国'
+                            },
+                            //selectedMode: false, //多个选中
+                            label: {
+                                emphasis: {
+                                    show: false
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    show: false,
+                                    areaColor: '#323c48',
+                                    borderColor: '#111'
+                                }
+                            },
+                            zlevel: 0,
+                            z: 2,
+                            top: '10px',
+                            left: '10px',
+                            // layoutCneter: ['1%', '1%'],
+                            // layoutSize: 50,
+                            // regions: [{ //在地图中对特定的区域配置样式
+
+                            // }],
+                            silent: true //图形是否不响应和触发鼠标事件
+                        },
+                        series: [],
+                        animation: true,
+                        animationEasing: 'backInOut',
+                        blendMode: 'lighter'
+                    },
+                    options: [{
+                        title: {
+                            text: '2013'
+                        },
+                        series: [{
+                            name: '弱',
+                            type: 'scatter',
+                            coordinateSystem: 'geo',
+                            symbolSize: 0.5,
+                            //large: true,
+                            largeThreshold: 5000,
+                            itemStyle: {
+                                normal: {
+                                    // shadowBlur: 2,
+                                    // shadowColor: 'rgba(37, 140, 249, 0.8)',
+                                    color: 'rgba(37, 140, 249, 0.8)'
+                                }
+                            },
+                            data: bigdata[0]
+                        }]
+                    }, {
+                        title: {
+                            text: '2014'
+                        },
+                        series: [{
+                            name: '弱',
+                            type: 'scatter',
+                            coordinateSystem: 'geo',
+                            symbolSize: 0.5,
+                            //large: true,
+                            largeThreshold: 5000,
+                            itemStyle: {
+                                normal: {
+                                    // shadowBlur: 2,
+                                    // shadowColor: 'rgba(37, 140, 249, 0.8)',
+                                    color: 'rgba(37, 140, 249, 0.8)'
+                                }
+                            },
+                            data: bigdata[1]
+                        }]
+                    }, {
+                        title: {
+                            text: '2015'
+                        },
+                        series: [{
+                            name: '弱',
+                            type: 'scatter',
+                            coordinateSystem: 'geo',
+                            symbolSize: 0.5,
+                            //large: true,
+                            largeThreshold: 5000,
+                            itemStyle: {
+                                normal: {
+                                    // shadowBlur: 2,
+                                    // shadowColor: 'rgba(37, 140, 249, 0.8)',
+                                    color: 'rgba(37, 140, 249, 0.8)'
+                                }
+                            },
+                            data: bigdata[2]
+                        }]
+                    }]
+                };
+                mapchart.setOption(option);
             };
         });
-        var option = {
-            baseOption: {
-                backgroundColor: '#404a59',
-                timeline: {
-                    show: true,
-                    type: 'slider',
-                    axisType: 'time',
-                    currentIndex: 0,
-                    autoPlay: true,
-                    rewind: false,
-                    loop: true,
-                    playInterval: 2000,
-                    realtime: true,
-                    controlPosition: true,
-                    zlevel: 0,
-                    z: 3,
-                    left: 'auto',
-                    top: 'auto',
-                    right: 'auto',
-                    bottom: 'auto',
-                    padding: 5,
-                    orient: 'horizontal',
-                    inverse: false,
-                    symbol: 'empty-Cirlce',
-                    symbolSize: 10,
-                    symbolRotate: 10,
-                    lineStyle: {},
-                    label: {},
-                    itemStyle: {},
-                    checkpointStyle: {},
-                    controlStyle: {},
-                    data: ['2013', '2014', '2015']
-                },
-                backgroundColor: '#404a59',
-                title: {
-                    text: '注册用户趋势',
-                    subtext: 'From 数据中心',
-                    left: 'center',
-                    textStyle: {
-                        color: '#fff'
-                    }
-                },
-                tooltip: {},
-                geo: {
-                    show: true,
-                    map: 'china',
-                    roam: false,
-                    //center: [115.91, 29.71],
-                    zoom: 1,
-                    scaleLimit: {
-                        min: 0.5,
-                        max: 3,
-                    },
-                    nameMap: {
-                        'China': '中国'
-                    },
-                    //selectedMode: false, //多个选中
-                    label: {
-                        emphasis: {
-                            show: false
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            show: false,
-                            areaColor: '#323c48',
-                            borderColor: '#111'
-                        }
-                    },
-                    zlevel: 0,
-                    z: 2,
-                    top: '10px',
-                    left: '10px',
-                    // layoutCneter: ['1%', '1%'],
-                    // layoutSize: 50,
-                    // regions: [{ //在地图中对特定的区域配置样式
-
-                    // }],
-                    silent: true //图形是否不响应和触发鼠标事件
-                },
-                series: [{
-                    type: 'pie'
-                }],
-                animation: true,
-                animationEasing: 'backInOut',
-                blendMode: 'lighter'
-            },
-            options: [{
-                title: {
-                    text: '2013'
-                },
-                series: [{
-                    data: []
-                }]
-            }, {
-                title: {
-                    text: '2014'
-                },
-                series: [{
-                    data: [
-
-                    ]
-                }]
-            }, {
-                title: {
-                    text: '2015'
-                },
-                series: [{
-                    data: []
-                }]
-            }]
-        };
-        mapchart.setOption(option);
     </script>
 </body>
 

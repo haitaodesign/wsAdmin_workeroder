@@ -51,7 +51,7 @@
                 map: 'china',
                 roam: false,
                 //center: [115.91, 29.71],
-                zoom: 1,
+                zoom: 0.5,
                 scaleLimit: {
                     min: 0.5,
                     max: 3,
@@ -97,13 +97,13 @@
             myworker.postMessage(weiboData);
             myworker.onmessage = function(e) {
                 var bigdata = e.data;
-                console.log(bigdata);
                 var series = {
                     name: '弱',
                     type: 'scatter',
                     coordinateSystem: 'geo',
                     symbolSize: 0.5,
                     //large: true,
+                    largeThreshold: 5000,
                     itemStyle: {
                         normal: {
                             // shadowBlur: 2,
@@ -111,9 +111,28 @@
                             color: 'rgba(37, 140, 249, 0.8)'
                         }
                     },
-                    data: bigdata
+                    data: bigdata[2]
                 };
-                options.series.push(series);
+                console.log(bigdata[0]);
+                //options.series.push(series);
+                mapchart.setOption(options);
+                var series1 = {
+                    name: '弱',
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    symbolSize: 0.5,
+                    //large: true,
+                    largeThreshold: 5000,
+                    itemStyle: {
+                        normal: {
+                            // shadowBlur: 2,
+                            // shadowColor: 'rgba(37, 140, 249, 0.8)',
+                            color: 'rgba(37, 140, 249, 0.8)'
+                        }
+                    },
+                    data: bigdata[1]
+                };
+                options.series.push(series1);
                 mapchart.setOption(options);
             };
         });

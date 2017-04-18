@@ -1,6 +1,5 @@
 onmessage = function(e) {
     var result = e.data;
-    console.log(result);
     var weiboData = result.map(function(serieData, idx) {
         var px = serieData[0] / 1000;
         var py = serieData[1] / 1000;
@@ -28,6 +27,13 @@ onmessage = function(e) {
     weiboData[2].sort(function() {
         return 0.5 - Math.random();
     });
-    var bigdata = weiboData[0].concat(weiboData[1], weiboData[2]);
+
+    var bigdata = [];
+    bigdata.push(weiboData[0]);
+    var bigdata1 = weiboData[0].concat(weiboData[1]);
+    bigdata.push(bigdata1);
+    var bigdata2 = bigdata1.concat(weiboData[2]);
+    bigdata.push(bigdata2);
+
     postMessage(bigdata);
 }
