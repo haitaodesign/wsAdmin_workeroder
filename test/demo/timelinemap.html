@@ -45,7 +45,7 @@
                     baseOption: {
                         backgroundColor: '#404a59',
                         timeline: {
-                            show: false,
+                            show: true,
                             type: 'slider',
                             axisType: 'time',
                             currentIndex: 0,
@@ -72,7 +72,7 @@
                             itemStyle: {},
                             checkpointStyle: {},
                             controlStyle: {},
-                            data: ['2013', '2014', '2015']
+                            data: ['2013', '2014', '2015', '2016']
                         },
                         backgroundColor: '#404a59',
                         title: {
@@ -186,6 +186,11 @@
                             },
                             data: bigdata[2]
                         }]
+                    }, {
+                        title: {
+                            text: '2016'
+                        }
+
                     }]
                 };
                 mapchart.setOption(option);

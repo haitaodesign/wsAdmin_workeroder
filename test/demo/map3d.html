@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WebGL3D地图</title>
+    <link rel="stylesheet" href="/plugins/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/plugins/node_modules/layui/src/css/layui.css">
+</head>
+<style>
+    #usermap3d {
+        width: 1280px;
+        height: 900px;
+        margin: 30px auto;
+    }
+    
+    body {
+        /*background: #404a59;*/
+        overflow: hidden;
+    }
+</style>
+
+<body>
+    <div class="row">
+        <div id="usermap3d">
+
+        </div>
+    </div>
+
+    <script src="/plugins/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/plugins/node_modules/._echarts@3.5.3@echarts/dist/echarts.js"></script>
+    <script src="/plugins/node_modules/echarts-gl/dist/echarts-gl.js"></script>
+    <script src="/plugins/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/plugins/node_modules/echarts/map/js/china.js"></script>
+    <script src="/plugins/node_modules/layui/src/layui.js"></script>
+    <script>
+        var mapchart = echarts.init(document.getElementById("usermap3d"));
+        //mapchart.showLoading();
+        var options = {
+            backgroundColor: '#404a59',
+            title: {
+                text: '注册用户趋势',
+                subtext: 'From 数据中心',
+                left: 'center',
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            tooltip: {},
+            geo3D: {
+                map: 'china',
+                shading: 'lambert',
+                light: {
+                    main: {
+                        intensity: 5,
+                        shadow: true,
+                        shadowQuality: 'high',
+                        alpha: 30
+                    },
+                    ambient: {
+                        intensity: 0
+                    },
+                },
+                itemStyle: {
+                    opacity: 1,
+                    borderWidth: 1,
+                    borderColor: '#222'
+                },
+                viewControl: {
+                    distance: 100
+                },
+                groundPlane: {
+                    show: true,
+                    color: '#999'
+                },
+                postEffect: {
+                    enable: true,
+                    bloom: {
+                        enable: false
+                    },
+                    SSAO: {
+                        radius: 1,
+                        intensity: 1,
+                        enable: true
+                    },
+                    depthOfField: {
+                        enable: false,
+                        focalRange: 10,
+                        blurRadius: 10,
+                        fstop: 1
+                    }
+                },
+                temporalSuperSampling: {
+                    enable: true
+                },
+
+                boxHeight: 1
+            },
+            series: [],
+        };
+        mapchart.setOption(options);
+    </script>
+</body>
+
+</html>

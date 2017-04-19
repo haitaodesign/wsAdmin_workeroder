@@ -51,7 +51,7 @@
                 map: 'china',
                 roam: false,
                 //center: [115.91, 29.71],
-                zoom: 0.5,
+                zoom: 1,
                 scaleLimit: {
                     min: 0.5,
                     max: 3,
@@ -86,6 +86,10 @@
             series: [],
             animation: true,
             animationEasing: 'backInOut',
+            animationDelay: function(idx) {
+                // 越往后的数据延迟越大
+                return idx * 10;
+            },
             blendMode: 'lighter'
         };
 
@@ -101,7 +105,7 @@
                     name: '弱',
                     type: 'scatter',
                     coordinateSystem: 'geo',
-                    symbolSize: 0.5,
+                    symbolSize: 1,
                     //large: true,
                     largeThreshold: 5000,
                     itemStyle: {
@@ -111,7 +115,7 @@
                             color: 'rgba(37, 140, 249, 0.8)'
                         }
                     },
-                    data: bigdata[2]
+                    data: bigdata[0]
                 };
                 console.log(bigdata[0]);
                 //options.series.push(series);
@@ -120,7 +124,7 @@
                     name: '弱',
                     type: 'scatter',
                     coordinateSystem: 'geo',
-                    symbolSize: 0.5,
+                    symbolSize: 1,
                     //large: true,
                     largeThreshold: 5000,
                     itemStyle: {
@@ -132,7 +136,27 @@
                     },
                     data: bigdata[1]
                 };
+                console.log(bigdata[1]);
                 options.series.push(series1);
+                mapchart.setOption(options);
+                var series2 = {
+                    name: '弱',
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    symbolSize: 1,
+                    //large: true,
+                    largeThreshold: 5000,
+                    itemStyle: {
+                        normal: {
+                            // shadowBlur: 2,
+                            // shadowColor: 'rgba(37, 140, 249, 0.8)',
+                            color: 'rgba(37, 140, 249, 0.8)'
+                        }
+                    },
+                    data: bigdata[2]
+                };
+                console.log(bigdata[2]);
+                options.series.push(series2);
                 mapchart.setOption(options);
             };
         });
