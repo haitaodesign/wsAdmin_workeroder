@@ -43,12 +43,11 @@
                     orient: 'horizontal',
                     autoPlay: true,
                     inverse: false,
-                    playInterval: 2000,
+                    playInterval: 3000,
                     left: 10,
-                    right: null,
+                    right: 30,
                     top: 830,
                     bottom: 20,
-                    width: 1900,
                     height: null,
                     label: {
                         normal: {
@@ -83,7 +82,7 @@
                             borderColor: '#aaa'
                         }
                     },
-                    data: [1800, 1810, 1820, 1830]
+                    data: [2013, 2014, 2015, 2016, 2017]
                 },
                 backgroundColor: '#404a59',
                 title: {
@@ -98,7 +97,7 @@
                 geo: {
                     show: true,
                     map: 'china',
-                    roam: false,
+                    roam: true,
                     //center: [115.91, 29.71],
                     zoom: 0.9,
                     scaleLimit: {
@@ -110,6 +109,9 @@
                     },
                     //selectedMode: false, //多个选中
                     label: {
+                        normal: {
+                            interval: 2
+                        },
                         emphasis: {
                             show: false
                         }
@@ -134,16 +136,87 @@
                 },
                 series: [],
                 animation: true,
-                animationEasing: 'backInOut',
+                animationEasing: 'linear',
+                animationDelay: 2,
                 blendMode: 'lighter'
             },
-            options: [
+            options: [{
+                    title: {
+                        text: '2013'
+                    },
+                    series: [{
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        data: [
+                            [111.23, 34.24, 20, 'shanghai']
+                        ],
+                        symbolSize: function(data) {
+                            return data[2];
+                        }
+                    }]
+                }, {
+                    title: {
+                        text: '2014'
+                    },
+                    series: [{
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        data: [
+                            [111.23, 34.24, 50, 'shanghai'],
+                            [111.23, 24.24, 20, 'shanghai']
+                        ],
+                        symbolSize: function(data) {
+                            return data[2];
+                        }
+                    }]
+                }, {
+                    title: {
+                        text: '2015'
+                    },
+                    series: [{
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        data: [
+                            [111.23, 34.24, 0, 'shanghai']
+                        ],
+                        symbolSize: function(data) {
+                            return data[2];
+                        }
+                    }]
+                }, {
+                    title: {
+                        text: '2016'
+                    },
+                    series: [{
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        data: [
+                            [111.23, 34.24, 10, 'shanghai']
+                        ],
+                        symbolSize: function(data) {
+                            return data[2];
+                        }
+                    }]
+                }, {
+                    title: {
+                        text: '2017'
+                    },
+                    series: [{
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        data: [
+                            [111.23, 34.24, 60, 'shanghai']
+                        ],
+                        symbolSize: function(data) {
+                            return data[2];
+                        }
+                    }]
+                }
 
             ]
         };
         mapchart.setOption(option);
-        option.baseOption.timeline.data.push(1840);
-        mapchart.setOption(option);
+        $(window).resize(mapchart.resize);
     </script>
 </body>
 
