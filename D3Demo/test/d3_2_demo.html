@@ -9,18 +9,35 @@
 </head>
 
 <body>
-    <svg>
-        <rect x="150" y="100" width="60" height="123" ></rect>
-    </svg>
+
     <script src="../node_modules/d3/build/d3.js"></script>
     <script>
-        var svg = d3.select("svg");
-        svg.select("rect")
-            .attr("width", 100)
-            .attr("height", 100)
-            .style("fill", "steelblue")
-            .style("stroke-width", 3)
-            .style("stroke", "#FFC000")
+        var svg = d3.select("body").append("svg").attr('height', 300);
+
+        function updateBars(barData) {
+            var selection = svg.selectAll(".bar")
+                .data(barData)
+
+            selection.enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", 0)
+                .attr("height", 20)
+                .style("fill", "steelblue")
+                //这种写法在d3.v4中会失效   
+                // selection
+                .attr("y", function(d, i) {
+                    return i * 70 + 30
+                })
+                .attr("width", function(d) {
+                    return d
+                })
+
+            selection.exit().remove()
+        }
+
+        //updateBars([170, 20, 73]);
+        //updateBars([34, 100]);
+        updateBars([100, 34, 150, 160]);
     </script>
 </body>
 
