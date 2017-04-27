@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>d3条形图动画</title>
+    <style>
+        body {
+            background: white;
+            margin: 0;
+            padding: 0;
+        }
+        
+        svg rect {
+            fill: #ccc;
+        }
+        
+        .trend-label {
+            font: 14px sans-serif;
+        }
+        
+        .score {
+            fill: #D04108;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script src="../node_modules/d3/build/d3.js"></script>
+    <script>
+        var trends1 = [{
+            trend: 'Cats',
+            score: 1.0
+        }, {
+            trend: 'Dogs',
+            score: 0.8
+        }, {
+            trend: 'Fish',
+            score: 0.4
+        }, {
+            trend: 'Ants',
+            score: 0.3
+        }, {
+            trend: 'Koalas',
+            score: 0.2
+        }];
+
+        var trends2 = [{
+            trend: 'Dogs',
+            score: 1.0
+        }, {
+            trend: 'Cats',
+            score: 0.9
+        }, {
+            trend: 'Koalas',
+            score: 0.5
+        }, {
+            trend: 'Frogs',
+            score: 0.3
+        }, {
+            trend: 'Bats',
+            score: 0.2
+        }];
+
+        // Koalas to the Max!
+        var trends3 = [{
+            trend: 'Koalas',
+            score: 1.0
+        }, {
+            trend: 'Dogs',
+            score: 0.8
+        }, {
+            trend: 'Cats',
+            score: 0.6
+        }, {
+            trend: 'Goats',
+            score: 0.3
+        }, {
+            trend: 'Frogs',
+            score: 0.2
+        }];
+
+        var svg = d3.select('body').append('svg').attr('height', 300);
+
+        function updateTrends(trendData) {
+            var selection = svg.selectAll('g.trend')
+                .data(trendData, function(d) {
+                    return d.trend;
+                });
+
+            //进入
+            var enterSelection = selection.enter().append('g')
+                .attr('class', 'trend')
+                .attr('opacity', 1)
+                .attr('transform', function(d, i) {
+                    return "translate(0," + (i * 30 + 20) + ")"
+                })
+
+            enterSelection.append('text')
+                .attr('class', 'trend-label')
+                .attr('text-anchor', 'end')
+                .attr('dx', '-0.5em')
+                .attr('dy', '1em')
+                .attr('x', 100)
+                .text(function(d) {
+                    return d.trend;
+                })
+
+            enterSelection.append('rect')
+                .attr('class', 'score')
+                .attr('x', 100)
+                .attr('height', 20)
+
+            var select = svg.selectAll('g');
+            select
+                .transition()
+                .delay(1200)
+                .duration(1200)
+                .attr('opacity', 1)
+                .attr('transform', function(d, i) {
+                    return "translate(0," + (i * 30 + 20) + ")"
+                })
+
+            select.select('.score')
+                .transition()
+                .duration(1200)
+                .attr('width', function(d) {
+                    return d.score * 90
+                })
+
+            select.exit()
+                .transition()
+                .ease(d)
+                .duration(1200)
+                .attr('transform', function(d, i) {
+                    return "translate(200," + (i * 30 + 20) + ")"
+                })
+                .attr('opacity', 0)
+                .remove()
+        }
+        updateTrends(trends1);
+        setTimeout(function() {
+            updateTrends(trends3);
+        }, 4000)
+    </script>
+</body>
+
+</html>
