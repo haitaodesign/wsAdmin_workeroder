@@ -25,7 +25,6 @@
 <body>
     <div class="row">
         <div id="usermap3d">
-
         </div>
     </div>
 
@@ -51,7 +50,7 @@
             tooltip: {},
             geo3D: {
                 map: 'china',
-                shading: 'lambert',
+                shading: 'color',
                 light: {
                     main: {
                         intensity: 5,
@@ -66,17 +65,17 @@
                 itemStyle: {
                     opacity: 1,
                     borderWidth: 1,
-                    borderColor: '#222'
+                    borderColor: '#000'
                 },
                 viewControl: {
-                    distance: 100
+                    distance: 90
                 },
                 groundPlane: {
-                    show: true,
-                    color: '#999'
+                    show: false,
+                    color: '#000'
                 },
                 postEffect: {
-                    enable: true,
+                    enable: false,
                     bloom: {
                         enable: false
                     },
@@ -93,10 +92,10 @@
                     }
                 },
                 temporalSuperSampling: {
-                    enable: true
+                    enable: false
                 },
 
-                boxHeight: 1
+                boxHeight: 0.2
             },
             series: [],
         };

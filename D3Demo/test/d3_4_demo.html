@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>d3动画demo</title>
+</head>
+
+<body>
+    <script src="../node_modules/d3/build/d3.js"></script>
+    <script>
+        var svg = d3.select('body').append('svg').attr('height', 300);
+
+        svg.append('circle')
+            .attr('cx', 20)
+            .attr('cy', 20)
+            .attr('r', 10)
+            .style('fill', 'gray')
+            .transition()
+            .delay(300)
+            .duration(700)
+            .attr('cx', 150)
+            .attr('cy', 100)
+            .attr('r', 40)
+            .style('fill', "#FFC000")
+            .transition()
+            .duration(2000)
+            .attr('cx', 130)
+            .attr('cy', 250)
+            .attr('r', 20)
+            .style('fill', 'red')
+            .attr('opacity', 1)
+            .transition()
+            .attr('opacity', 0)
+            .remove()
+    </script>
+</body>
+
+</html>
