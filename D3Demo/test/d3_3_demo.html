@@ -94,8 +94,12 @@
                 });
             //进入
             var enterSelection = selection.enter().append('g')
-                .attr('class', 'trend');
-            console.log(enterSelection);
+                .attr('class', 'trend')
+                .attr('opacity', 1)
+                .attr('transform', function(d, i) {
+                    return "translate(0," + (i * 30 + 20) + ")"
+                })
+
             enterSelection.append('text')
                 .attr('class', 'trend-label')
                 .attr('text-anchor', 'end')
