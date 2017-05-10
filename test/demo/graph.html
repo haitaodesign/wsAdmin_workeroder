@@ -41,7 +41,7 @@
                     }
                 },
                 edgeSymbol: ['circle', 'arrow'],
-                edgeSymbolSize: [4, 10],
+                edgeSymbolSize: [5, 10],
                 edgeLabel: {
                     normal: {
                         textStyle: {
@@ -52,7 +52,8 @@
                 data: [{
                     name: '节点1',
                     x: 300,
-                    y: 300
+                    y: 300,
+                    symbolSize: 20
                 }, {
                     name: '节点2',
                     x: 800,
@@ -117,8 +118,16 @@
                 }
             }]
         };
-
         active_graph_chart.setOption(option);
+        var b = 0;
+        var a = setInterval(function() {
+            b++;
+            option.series[0].data[0].symbolSize += 5;
+            active_graph_chart.setOption(option);
+            if (b > 20) {
+                clearInterval(a);
+            }
+        }, 1000);
     </script>
 </body>
 
